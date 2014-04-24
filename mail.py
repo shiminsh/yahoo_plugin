@@ -1,9 +1,11 @@
 import os
 import sys
+import time
 import dbus
 import urllib
 import urllib2
 import cookielib
+import subprocess
 import ConfigParser
 from bs4 import BeautifulSoup
 
@@ -20,7 +22,6 @@ id_num_to_replace = 0
 title             = "Yahoo Mail"
 actions_list      = ''
 hint              = ''
-time              = 5000   # Use seconds x 1000
 
 
 def ConfigSectionMap(section):
@@ -36,13 +37,8 @@ def ConfigSectionMap(section):
             dict1[option] = None
     return dict1
 
-def checkConnection():
-    try:
-        urllib2.urlopen("http://www.google.com").close()
-    except urllib2.URLError:
-        return False
-    else:
-        return True
+def internet_on():
+    return subprocess.call(['/bin/ping', '-c1', 'google.com'])
 
 
 class yahoo:
@@ -68,6 +64,7 @@ class yahoo:
         self.show_popup(number)
 
     def show_popup(self, number):
+        time = 5000   # Use seconds x 1000
         icon = os.path.join(sys.path[0], 'logo.jpg')
         text = "You have %d unread mail" % number
         bus = dbus.SessionBus()
@@ -77,16 +74,15 @@ class yahoo:
 
 if __name__ == '__main__':
     while True:
-        isConnected = checkConnection()
-        if(isConnected == False):
-            print "No internet connection"
-        else:
-            print "You are connected to the internet"
+        if internet_on() == 0:
             config_path = os.path.join(sys.path[0], 'config.ini')
             Config = ConfigParser.ConfigParser()
             Config.read(config_path)
             Email = ConfigSectionMap("SectionOne")['email']
             Password = ConfigSectionMap("SectionOne")['password']
             d = yahoo(Email, Password)
+            time.sleep(300)
+        else:
+            time.sleep(30)
 
 
