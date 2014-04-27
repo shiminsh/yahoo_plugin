@@ -115,7 +115,7 @@ class yahoo:
             self.updateconfig(number)
         else:
             text = message
-            time = 5000
+            time = 30
             icon = os.path.join(sys.path[0], 'logo.jpg')
             notify.Notify(app_name, id_num_to_replace, icon, title, text, actions_list, hint, time)
             self.updateconfig(number)
