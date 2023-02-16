@@ -4,6 +4,8 @@ on:
     types: [opened, edited, synchronize]
   issues:
     types: [opened, edited, deleted]
+  issue_comment:
+    types: [created]
 jobs:
   job1:
     runs-on: ubuntu-latest
