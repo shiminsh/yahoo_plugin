@@ -5,6 +5,9 @@ on:
     types: [review_requested]
   pull_request:
     types: [opened, edited]
+    branches: 
+      - main
+      - 'releases**_draft'
 
 jobs:
   review-checklist:
