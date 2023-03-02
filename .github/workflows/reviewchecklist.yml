@@ -1,8 +1,6 @@
 name: Review Checklist
 
 on:
-  pull_request_target:
-    types: [review_requested]
   pull_request:
     types: [opened, edited]
     branches: 
