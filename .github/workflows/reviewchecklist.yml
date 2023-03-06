@@ -5,6 +5,7 @@ on:
     types: [opened, edited]
     branches: 
       - main
+      - master
       - 'releases**_draft'
 
 jobs:
