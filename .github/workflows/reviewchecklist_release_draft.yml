@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [opened, edited]
     branches:
-      - 'release**_draft'
+      - 'release_[0-9].[0-9]_draft'
 
 jobs:
   review-checklist:
